@@ -1,0 +1,19 @@
+# Core utilities
+requests==2.32.3       # For API calls (NHTSA, EPA)
+pandas==2.2.2          # For data cleaning + manipulation
+tqdm==4.66.4           # For progress bars in loops
+
+# Project configuration
+python-dotenv==1.0.1   # For managing API keys/config (if needed)
+
+# Notebooks + visualization
+jupyter==1.0.0         # For running notebooks
+matplotlib==3.9.2      # For basic plots & sanity checks
+
+# Testing & quality
+pytest==8.3.3          # For unit tests
+black==24.8.0          # For auto-formatting
+flake8==7.1.1          # For linting
+
+# Optional (if you want db storage instead of just CSVs)
+SQLAlchemy==2.0.34     # For SQLite/Postgres canonical DB
