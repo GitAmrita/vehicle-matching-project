@@ -1,7 +1,7 @@
 his project builds a pipeline to match vendor vehicle strings to canonical Year-Make-Model records.
 
 Step 1: 
-NHTSA api
+NHTSA dataset
 First fetch all makes:
 https://vpic.nhtsa.dot.gov/api/vehicles/GetAllMakes?format=json
 Gives Make_ID and Make_Name.
@@ -9,3 +9,13 @@ Gives Make_ID and Make_Name.
 Loop over years (1981 → current) and make IDs.
 https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/440/modelyear/2015?format=json
 Save all Make_ID, Make_Name, Model_ID, Model_Name, Year.
+
+EPA FuelEconomy.gov Dataset
+
+Get all vehicle makes for a year:
+https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=2015
+Gives Make_name, Year
+
+Get all models for a make + year:
+https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=2015&make=Honda
+Gives model_name, Year
