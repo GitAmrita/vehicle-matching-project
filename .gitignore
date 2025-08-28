@@ -24,3 +24,6 @@ dist/
 # IDE settings
 .vscode/
 .idea/
+vehicle.db
+make_model_year.csv
+make_model_year.json

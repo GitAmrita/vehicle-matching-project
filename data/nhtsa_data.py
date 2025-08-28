@@ -48,5 +48,3 @@ def nhtsa_combine_makes_and_models():
 
     print("🎉 Done!")
 
-if __name__ == "__main__":
-    main()
