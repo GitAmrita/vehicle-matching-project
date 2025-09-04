@@ -27,3 +27,7 @@ dist/
 vehicle.db
 make_model_year.csv
 make_model_year.json
+
+# macOS system files
+.DS_Store
+data/.DS_Store

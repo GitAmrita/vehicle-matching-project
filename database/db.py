@@ -5,9 +5,14 @@ DB_NAME = "vehicle.db"
 def get_connection():
     return sqlite3.connect(DB_NAME)
 
-def init_db():
+def init_db(reset=False):
     conn = get_connection()
     cur = conn.cursor()
+
+    if reset:
+        cur.execute("DROP TABLE IF EXISTS noisy_variants;")
+        cur.execute("DROP TABLE IF EXISTS models;")
+        cur.execute("DROP TABLE IF EXISTS makes;")
 
     # Create tables
     cur.execute("""
@@ -29,5 +34,18 @@ def init_db():
     );
     """)
 
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS noisy_variants (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        noisy_string TEXT NOT NULL,
+        model_id TEXT NOT NULL,
+        make_id TEXT NOT NULL,
+        year INTEGER NOT NULL,
+        noise_type TEXT,
+        FOREIGN KEY (model_id, make_id, year) REFERENCES models(model_id, make_id, year)
+    );
+    """)
+
     conn.commit()
     conn.close()
+
