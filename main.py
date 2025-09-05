@@ -2,6 +2,8 @@ from data.nhtsa_data import nhtsa_combine_makes_and_models
 from database.db import init_db
 from database.load_csv import load_csv
 from data.noisy_data.load_noise import load_noise
+from data.embeddings.quadrant import build_embeddings
+from test_quadrant import *
 
 
 if __name__ == "__main__":
@@ -18,8 +20,18 @@ if __name__ == "__main__":
     # print("Done! Data inserted into vehicle.db")
 
     # "Generate noisy variants"
-    print("Generating noisy variants...")
-    load_noise()
+    # print("Generating noisy variants...")
+    # load_noise()
 
-    print("Done! Noisy variants generated and loaded into DB.")
+    # Build embeddings
+    # uploaded = build_embeddings(limit=4, offset=0)
+    # print(f"Uploaded {uploaded} points to Qdrant")
+    
+    # Run test file
+    # view_collection(limit=5)
+    demo_search()
+    
+    # You can also call individual functions:
+    # search("toyota camry")  # Search for specific vehicle
+
 

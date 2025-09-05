@@ -49,3 +49,21 @@ def init_db(reset=False):
     conn.commit()
     conn.close()
 
+
+def fetch_canonical_models(limit=1000, offset=0):
+    """
+    Fetch canonical model/make/year data from the database with a join, limit, and offset.
+    Returns a list of tuples: (make_name, model_name, year)
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT mk.make_name, m.model_name, m.year
+        FROM models m
+        JOIN makes mk ON m.make_id = mk.make_id
+        WHERE m.model_name != mk.make_name
+        LIMIT ? OFFSET ?
+    """, (limit, offset))
+    rows = cur.fetchall()
+    conn.close()
+    return rows

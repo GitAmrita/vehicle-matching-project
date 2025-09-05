@@ -17,3 +17,6 @@ flake8==7.1.1          # For linting
 
 # Optional (if you want db storage instead of just CSVs)
 SQLAlchemy==2.0.34     # For SQLite/Postgres canonical DB
+qdrant-client          # For vector database support
+fastembed  # For lightweight local text embeddings
+numpy      # For array operations
