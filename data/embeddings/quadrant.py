@@ -20,7 +20,7 @@ client = QdrantClient(
     cloud_inference=False,  # Using local embeddings
 )
 
-# Initialize FastEmbed model (lightweight)
+# Initialize BAAI/bge-small-en-v1.5" model which comes out of the box with FastEmbed library (lightweight)
 embedding_model = TextEmbedding(model_name=MODEL_NAME, max_length=512)
 
 # Export for use in other modules
