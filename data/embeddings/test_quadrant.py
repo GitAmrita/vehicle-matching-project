@@ -4,7 +4,9 @@ Test file for Qdrant collection functionality
 """
 
 from data.embeddings.quadrant import client, embedding_model, COLLECTION
+from database.db import get_noisy_variants
 from qdrant_client import models
+from data.embeddings.evaluation_metrics import precision_recall
 import re
 
 
@@ -79,11 +81,12 @@ def search(query: str, top_k: int = 10):
 
 
 def demo_search(queries: list = None):
+
     """
     Demo search functionality with sample queries.
     """
     if queries is None:
-        queries = ["2023 3pluscoco hb1"]
+        queries = ["2015 fabrication llc"]
     
     print("🔍 Testing search functionality")
     print("=" * 50)
@@ -93,3 +96,33 @@ def demo_search(queries: list = None):
         results = search(query, top_k=3)
         for i, result in enumerate(results, 1):
             print(f"   {i}. {result['year']} {result['make']} {result['model']} (score: {result['score']})")
+
+def evaluate(limit=5, k=3):
+    """
+    search_fn: function that takes noisy_string -> returns ranked list of dicts
+    noisy_variants: iterable of dicts {noisy_string, make_id, model_id, year}
+    """
+    total_precision = 0
+    total_recall = 0
+    total_queries = 0
+
+
+    noisy_variants = get_noisy_variants(limit=limit)
+
+    for row in noisy_variants:
+        noisy_string, model_id, make_id, year = row
+        truth = (make_id, model_id, year)
+        results = search(noisy_string, k)
+
+        # --- Precision/Recall ---
+        correct, retrieved = precision_recall(results, truth)
+        total_precision += correct
+        total_recall += correct  # since each query has 1 relevant item
+        total_queries += 1
+
+
+    metrics = {
+        "Precision": total_precision / total_queries,
+        "Recall": total_recall / total_queries,
+    }
+    return metrics

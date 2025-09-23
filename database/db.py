@@ -67,3 +67,18 @@ def fetch_canonical_models(limit=1000, offset=0):
     rows = cur.fetchall()
     conn.close()
     return rows
+
+def get_noisy_variants(limit=30, offset=0):
+    """
+    Fetch noisy variants to evaluate search quality using precision and recall.
+ 
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+    
+    # Fetch all noisy variants as queries
+    cur.execute("""
+    SELECT noisy_string, model_id, make_id, year FROM noisy_variants LIMIT ? OFFSET ?
+    """, (limit, offset))
+    noisy_variants = cur.fetchall()
+    return noisy_variants

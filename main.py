@@ -3,7 +3,7 @@ from database.db import init_db
 from database.load_csv import load_csv
 from data.noisy_data.load_noise import load_noise
 from data.embeddings.quadrant import build_embeddings
-from test_quadrant import *
+from data.embeddings.test_quadrant import *
 
 
 if __name__ == "__main__":
@@ -24,12 +24,14 @@ if __name__ == "__main__":
     # load_noise()
 
     # Build embeddings
-    # uploaded = build_embeddings(limit=4, offset=0)
+    # uploaded = build_embeddings(limit=1000, offset=0)
     # print(f"Uploaded {uploaded} points to Qdrant")
     
     # Run test file
     # view_collection(limit=5)
-    demo_search()
+    # demo_search()
+
+    evaluate()
     
     # You can also call individual functions:
     # search("toyota camry")  # Search for specific vehicle
