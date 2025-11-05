@@ -4,6 +4,7 @@ from database.load_csv import load_csv
 from data.noisy_data.load_noise import load_noise
 from data.embeddings.quadrant import build_embeddings
 from data.embeddings.test_quadrant import *
+from database.elasticsearch_client import *
 
 
 if __name__ == "__main__":
@@ -31,9 +32,12 @@ if __name__ == "__main__":
     # view_collection(limit=5)
     # demo_search()
 
-    evaluate()
+    # evaluate()
     
     # You can also call individual functions:
     # search("toyota camry")  # Search for specific vehicle
+
+    # Test connection to Elasticsearch
+    test_connection()
 
 

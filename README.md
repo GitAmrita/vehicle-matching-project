@@ -19,3 +19,13 @@ Gives Make_name, Year
 Get all models for a make + year:
 https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=2015&make=Honda
 Gives model_name, Year
+
+Set up Elastic search
+
+cd /Users/amy/Documents/Code/vehicle-matching-project
+docker-compose up -d
+
+# Test connection
+curl http://localhost:9200
+
+Kibana Dev Tools will be available at: http://localhost:5601

@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: vehicle-elasticsearch
+    environment:
+      # Single-node cluster for development
+      - discovery.type=single-node
+      
+      # Disable security for local development (enable in production!)
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      
+      # Memory settings (adjust based on your machine)
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      
+      # Cluster name
+      - cluster.name=vehicle-search-cluster
+      - node.name=vehicle-node-1
+      
+    ports:
+      - "9200:9200"  # REST API
+      - "9300:9300"  # Inter-node communication
+    
+    volumes:
+      # Persist data between container restarts
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    
+    networks:
+      - vehicle-search-network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    
+    # Resource limits (optional, adjust based on your machine)
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: vehicle-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      
+      # Disable security for local development
+      - XPACK_SECURITY_ENABLED=false
+      
+    ports:
+      - "5601:5601"  # Kibana web interface
+    
+    networks:
+      - vehicle-search-network
+    
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  elasticsearch-data:
+    driver: local
+
+networks:
+  vehicle-search-network:
+    driver: bridge
+

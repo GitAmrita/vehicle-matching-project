@@ -31,3 +31,11 @@ make_model_year.json
 # macOS system files
 .DS_Store
 data/.DS_Store
+
+# Elasticsearch / Docker
+.env
+.env.local
+docker-compose.override.yml
+
+# Elasticsearch data (if running locally outside Docker)
+elasticsearch-data/

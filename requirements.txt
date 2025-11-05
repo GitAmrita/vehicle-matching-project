@@ -20,3 +20,6 @@ SQLAlchemy==2.0.34     # For SQLite/Postgres canonical DB
 qdrant-client          # For vector database support
 fastembed  # For lightweight local text embeddings
 numpy      # For array operations
+
+# Elasticsearch
+elasticsearch>=8.11.0,<9.0.0  # For Elasticsearch/OpenSearch integration (pin to 8.x to match server)
