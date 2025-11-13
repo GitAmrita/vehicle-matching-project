@@ -4,7 +4,8 @@ from database.load_csv import load_csv
 from data.noisy_data.load_noise import load_noise
 from data.embeddings.quadrant import build_embeddings
 from data.embeddings.test_quadrant import *
-from database.elasticsearch_client import *
+from es_module.elasticsearch_client import *
+from es_module.indexing import create_index, build_index, get_index_stats
 
 
 if __name__ == "__main__":
@@ -38,6 +39,20 @@ if __name__ == "__main__":
     # search("toyota camry")  # Search for specific vehicle
 
     # Test connection to Elasticsearch
-    test_connection()
+    # test_connection()
+    
+    # Index data into Elasticsearch
+    # print("Creating Elasticsearch index...")
+    # create_index(recreate=True)  # Set recreate=True to delete and recreate
+    
+    # print("Indexing vehicle data...")
+    # indexed = build_index(limit=1000, offset=0)
+    # print(f"Indexed {indexed} documents")
+    
+    print("Index statistics:")
+    stats = get_index_stats()
+    if stats:
+        print(f"  Documents: {stats['document_count']}")
+        print(f"  Size: {stats['size_mb']} MB")
 
 

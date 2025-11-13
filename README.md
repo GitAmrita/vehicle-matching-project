@@ -29,3 +29,17 @@ docker-compose up -d
 curl http://localhost:9200
 
 Kibana Dev Tools will be available at: http://localhost:5601
+
+Elastic Search indexing reasoning.
+
+Handle a fuzzy search like: "2015 fabrication llc"
+and result that corresponds to: year = 2015, make_name = "Fabrication LLC", and maybe model_name = something.
+
+Index the joined view - fetch_canonical_models
+
+ Why joined view instead of separate make, model indices? 
+Single search covers all fields (make/model/year). No need for multiple queries or joins in ES. Easy fuzzy search like “2015 ford f150”.
+
+Separate make, model indices: Requires joining or aggregating at query time — Elasticsearch is not built for relational joins, so queries become complicated and slower.
+
+

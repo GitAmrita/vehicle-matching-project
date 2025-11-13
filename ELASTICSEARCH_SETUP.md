@@ -120,7 +120,7 @@ docker exec vehicle-elasticsearch \
 
 When ready for Elastic Cloud:
 1. Export data using Elasticsearch snapshots
-2. Update `database/elasticsearch_client.py` with cloud credentials
+2. Update `es_module/elasticsearch_client.py` with cloud credentials
 3. Import data to cloud cluster
 4. Update `docker-compose.yml` to remove or comment out ES service
 
