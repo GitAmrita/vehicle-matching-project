@@ -6,6 +6,7 @@ from data.embeddings.quadrant import build_embeddings
 from data.embeddings.test_quadrant import *
 from es_module.elasticsearch_client import *
 from es_module.indexing import create_index, build_index, get_index_stats
+from es_module.test_elasticsearch import *
 
 
 if __name__ == "__main__":
@@ -49,10 +50,25 @@ if __name__ == "__main__":
     # indexed = build_index(limit=1000, offset=0)
     # print(f"Indexed {indexed} documents")
     
-    print("Index statistics:")
-    stats = get_index_stats()
-    if stats:
-        print(f"  Documents: {stats['document_count']}")
-        print(f"  Size: {stats['size_mb']} MB")
-
-
+    # Index statistics:
+    # stats = get_index_stats()
+    # if stats:
+    #     print(f"  Documents: {stats['document_count']}")
+    #     print(f"  Size: {stats['size_mb']} MB")
+    
+    # Test Elasticsearch search
+    print("\n=== Testing Elasticsearch Search ===")
+    # view_index(limit=50)  # View sample documents
+    es_demo_search(use_fuzzy=True)  # Demo search with fuzzy matching
+    # test_fuzzy_matching()  # Test fuzzy matching capabilities
+    
+    # Evaluate search quality
+    # metrics = evaluate(limit=30, k=10, use_fuzzy=True)
+    # print(f"\n📊 Evaluation Results:")
+    # print(f"   Precision: {metrics['Precision']:.4f}")
+    # print(f"   Recall: {metrics['Recall']:.4f}")
+    
+    # Compare fuzzy vs exact matching
+    # compare_fuzzy_vs_exact(limit=30, k=10)
+    
+    pass  # Placeholder - uncomment tests above to run
